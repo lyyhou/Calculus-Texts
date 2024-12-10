@@ -1,5 +1,5 @@
 # Calculus-Texts
-study aids for the calculus of functions of a single variable. They may provide simple insight, new ideas, and a different perspective to concepts that traditionally are taught fairly similarly. I may provide analysis definitions such as delta epsilon in order to achieve a better understanding, *no tutorials on differentiation and integration yet*
+study aids for the calculus of functions of a single variable. They may provide simple insight, new ideas, and a different perspective to concepts that traditionally are taught fairly similarly. I may provide analysis definitions such as delta epsilon in order to achieve a better understanding,
 The structure (once completed) will follow: 
 1. Limits & Differentiation
 2. Integration
@@ -7,3 +7,5 @@ The structure (once completed) will follow:
 4. Infinite Series Applications
 5. Calculus of Polar Coordinates
 6. Calculus of Parametric Equations
+
+This is being constantly updated, some files may not exist yet. I am currently writing them!
