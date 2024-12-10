@@ -1,4 +1,4 @@
-# Calculus-Texts
+# Calculus Texts
 Study aids for the calculus of functions of a single variable. Each explanation is fast and short, but I hope that they provide simple insight, new ideas, and a different perspective on concepts that are taught systematically. I may provide analytical definitions such as delta epsilon in order to achieve a deeper understanding.
 The structure (once completed) will follow: 
 1. **Limits & Differentiation**
