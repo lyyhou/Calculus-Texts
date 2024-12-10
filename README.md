@@ -3,7 +3,7 @@ Study aids for the calculus of functions of a single variable. Each explanation 
 The structure (once completed) will follow: 
 1. Limits & Differentiation
 2. Integration
-3. Infinite Series 
+3. Infinite Series: Basic Introduction and Some Examples (Not Very Deep) 
 4. Infinite Series Applications
 5. Calculus of Polar Coordinates
 6. Calculus of Parametric Equations
