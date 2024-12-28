@@ -1,0 +1,402 @@
+\documentclass[a4paper, 11pt]{article}
+\renewcommand{\abstractname}{Preface}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tcolorbox}
+\usepackage{graphicx}
+\usepackage{float}
+\graphicspath{ {./images/} }
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textbf{Lawrence Zhou}}
+\fancyhead[R]{\textbf{Infinite Series}}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\arraystretch}{1.5}
+
+\newtheorem{theorem}{Theorem}
+
+% Title
+\title{\textbf{Calculus: Infinite Series}}
+\author{Lawrence Zhou \\ \texttt{contactlawrencezhou@gmail.com}}
+\date{}
+
+\newenvironment{concept}{%
+    \vspace{1em}
+    \begin{tcolorbox}[colframe=black!70, colback=white!95, title=Definition]
+}{%
+    \end{tcolorbox}
+    \vspace{1em}
+}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+    The majority single variable calculus courses offer an introduction to the summation of an infinite sequence of terms, known as an infinite series. These types of series offer a broad application in the field of physics, from the solutions of spring systems to the density of heat. In this paper, we will be discussing the criteria for convergence or divergence of a series of infinite terms. All functions are defined such that $f: \mathbb{R} \rightarrow \mathbb{R}$, and defined under $\mathbb{R} ^ 2$. As of 2024, this document is intended to act as a study aid to courses teaching calculus of a single variable.
+\end{abstract}
+
+\section{Introduction}
+*this is being updated*
+Let a sequence of terms be defined as \(a_n\). 
+The infinite series or summation is denoted as: 
+\[
+\sum_{n=1}^{\infty}  a_n
+\]
+Since the behavior of a series is generally indistinguishable at infinity, any sufficiently small \(n\) as a starting point will work. It is also important to note that these starting positions need to be scaled. This is known as an \textbf{Index Shift}.
+
+\begin{concept}
+    Let a new index $k$ be defined as the shift of a summation such that: 
+    \[ \sum_{n=a}^{\infty} f(n) = \sum_{n=a+k}^{\infty} f(n-k)  \]
+\end{concept}
+This only works for constant values $k$, which will be the norm. It is also important to acknowledge that infinite summations carry the same linearity properties as those seen in Riemann Sums or Integrals, which are: 
+\begin{concept}
+    Linearity of sums:
+\[
+\sum_{n=1}^\infty (a_n + b_n) = \sum_{n=1}^\infty a_n + \sum_{n=1}^\infty b_n
+\]
+
+Linearity of scalar multiplication:
+\[
+\sum_{n=1}^\infty c \cdot a_n = c \cdot \sum_{n=1}^\infty a_n, \quad \text{where } c \text{ is a constant.}
+\]
+\end{concept}
+A final important concept to note is that if a series converges, then the series of partial sums must converge. If this does not happen, then the series will diverge. Intuitively, this makes sense since there must exist a large values $N$ that do not spiral toward infinity. 
+\begin{concept}
+    A series \(\sum_{n=1}^\infty a_n\) converges if the sequence of partial sums
+\[
+S_N = \sum_{n=1}^N a_n
+\]
+approaches a finite limit as \(N \to \infty\).
+
+If this does not happen, the series \textbf{diverges}.
+\end{concept}
+Additionally, if a series \(\sum_{n=1}^\infty a_n\) converges, then the limit of the sequence $a_n$ must be zero. This is known as the \textbf{$nth$ term divergence test}.
+\begin{concept}
+    Given an infinite series \(\sum_{n=1}^\infty a_n\), if 
+    \[ \lim_{x\to\infty} a_n \neq 0\]
+    then the series diverges. If:
+    \[ \lim_{x\to\infty} a_n = 0\]
+    The test is inconclusive.
+\end{concept}
+This test only allows for knowledge of divergence, since even if the nth term test oes to zero there exists no guarantee that the specific sequence will diverge. Here is an example:
+\begin{proof}
+Given the \textbf{Harmonic Series:}
+\[\sum_{n=1}^\infty \frac{1}{n}\] it is easily seen that as the limit approaches infinity of $\frac{1}{n}$ is zero. However, this is a commonly known type of divergent series! Thus, even though the limit approaches zero we cannot tell if the series is convergent. 
+\end{proof}
+\subsection{P-series and Integral Test}
+It is important to know that the harmonic series 
+\[\sum_{n=1}^\infty \frac{1}{n}\] Diverges. This is since: 
+
+\begin{proof}
+    If we write this series out: 
+    \[
+        1 + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} + \cdots
+        \]
+         
+        \[
+        1 + \underbrace{\frac{1}{2}}_{\text{1 term}} + \underbrace{\frac{1}{3} + \frac{1}{4}}_{\text{2 terms}} + \underbrace{\frac{1}{5} + \frac{1}{6} + \frac{1}{7} + \frac{1}{8}}_{\text{4 terms}} + \cdots
+        \]
+        
+        This is greater than:
+        \[
+        1 + \underbrace{\frac{1}{2}}_{\text{1 term}} + \underbrace{\frac{1}{4} + \frac{1}{4}}_{\text{2 terms}} + \underbrace{\frac{1}{8} + \frac{1}{8} + \frac{1}{8} + \frac{1}{8}}_{\text{4 terms}} + \cdots
+        \]
+        
+        which is equal to:
+        \[
+        1 + \underbrace{\frac{1}{2} + \frac{1}{2} + \frac{1}{2} + \cdots}_{\text{infinite terms}}
+        \]
+        Which is clearly a divergent sum!
+\end{proof}
+Generally, we can tell if a series in the form \(\sum_{n=1}^\infty \frac{1}{n^p}\) will diverge. This sort of form is known as a p-series. In order to tell if these diverge, we can look at this from a geometric prespective:
+\begin{figure}[h]
+    \caption{$\frac{1}{x}$ v.  \(\sum_{n=1}^\infty \frac{1}{n}\)}
+    \centering
+    \includegraphics[width=0.9\textwidth]{inttest.png} % Add file extension
+\end{figure}
+The area of the rectangles that are generated by the summations are always larger than the area of the curve that is shown. We can generalize this:
+\begin{theorem}
+    \[
+    \int_1^{\infty} \frac{1}{x} \, dx < \sum_{n=1}^\infty \frac{1}{n}
+    \]
+\end{theorem}
+Since the series is not bounded by the integral, we can prove it's divergence since the integral diverges. However, it is also important to see that this sort of reasoning can only be done with functipons that are continuously decreasing. If we had a function that was increasing, we would not be able to tell anything. This rule can further be generalized:
+\begin{concept}{Integral Test}: 
+    Given a series \(\sum_{n=1}^{\infty} a_n\), definte a function $f(x)$ from the rule of $a_n$. If: 
+    \[
+\int_{1}^{\infty} f(x) \, dx \quad \text{converges, then} \quad \sum_{n=1}^{\infty} a_n \, \text{converges.}
+\]
+\[
+\int_{1}^{\infty} f(x) \, dx \quad \text{diverges, then} \quad \sum_{n=1}^{\infty} a_n \, \text{diverges.}
+\]
+Provided that $f(x)$ is continous, positive, and decreasing for all $x\in[1,\infty)$
+\end{concept}
+Fundamentally, this rule discusses whether if a function bounds a series or not. If the area under the curve is lower than the area of the series and there exists no bounds, then the series will diverge. For convergence, a series must be bounded by the given function, and the improper integral must be convergent.
+\par
+Given this, we can generalize a rule for series in the form $\sum_{n=1}^\infty \frac{1}{n^p}$. Specifically, if we look at values of $p$ less than one, then we can see that once we raise $p$ to a decimal power the resulting number will decrease as $n$ becomes larger. This directly has an effect on the value of the fraction, as for $n$ growing larger the value of $\frac{1}{n^p}$ will continue to get larger, rather than smaller. Specifically, if we look at the function $\frac{1}{\sqrt{x}}$:
+\begin{figure}[h]
+    \caption{ $\frac{1}{\sqrt{x}}$ v.  $\sum_{n=1}^\infty \frac{1}{n^{1/2}}$}
+    \centering
+    \includegraphics[width=0.9\textwidth]{inttest2.png}
+\end{figure}
+The integral will always be smaller than the series, and since the integral's value diverges, the series will also diverge. 
+Now, we will see an example of the opposite happening, where a given function will bound a series, which shows convergence. Consider the integral and series $\int_{1}^{\infty} \frac{1}{x^2} \, dx$ and $\sum_{n=1}^{\infty} \frac{1}{n^2}$. Once again, if we construct the rectangles and graph. Specifically, for $p>1$ we look at the properties of:
+\begin{theorem}
+    \[
+    \int_1^{\infty} \frac{1}{x^p} \, dx < \sum_{n=1}^\infty \frac{1}{n^p} <  1 + \int_1^{\infty} \frac{1}{x^p} \, dx
+    \]
+\end{theorem}
+\begin{figure}[htbp]
+    \caption{$1 + \int_1^{\infty} \frac{1}{x^p} \, dx$ v. $\sum_{n=1}^\infty \frac{1}{n^p}$}
+    \centering
+    \includegraphics[width=0.9\textwidth]{inttest3.png}
+\end{figure}
+Through theorem two, we have essentially shown a bound to the p-series. Specifically, the graph shows the curve of $\frac{1}{x^2}$ and its corresponding series. Since the integral $\int_{0}^{\infty} \frac{1}{x^2} \, dx$ converges, it should follow that the series $\sum_{n=1}^{\frac{1}{n^2}}$ converges. More generally, we can write this rule more generally: 
+\begin{concept}
+A \(p\)-series is a series of the form:
+\[
+\sum_{n=1}^\infty \frac{1}{n^p},
+\]
+where \(p > 0\).
+
+\textbf{Convergence:}
+\begin{itemize}
+    \item The series \textbf{converges} if \(p > 1\).
+    \item The series \textbf{diverges} if \(p \leq 1\).
+\end{itemize}
+\end{concept}
+\subsection{Geometric Series}
+If we recall a concept learned in algebra, a geometric series is a sequence that is defined by a common ratio. As an infinite sum it can be defined as: 
+\[\sum_{n=0}^\infty ar^n\]
+The sum of this infinite sequence can be derived rather easily, shown here:
+\begin{proof}
+To derive the formula for the sum of a geometric series, consider the partial sum of the first \(N+1\) terms:
+\[S_N = a + ar + ar^2 + \dots + ar^N.\]
+This can be written compactly as:
+\[S_N = \sum_{n=0}^N ar^n.\]
+To simplify this expression, multiply \(S_N\) by \(r\):
+\[rS_N = ar + ar^2 + ar^3 + \dots + ar^{N+1}.\]
+Now subtract \(rS_N\) from \(S_N\):
+\[S_N - rS_N = a - ar^{N+1}.\]
+Factoring out \(S_N\) and simplifying:
+\[S_N(1 - r) = a(1 - r^{N+1}).\]
+For \(|r| < 1\), as \(N \to \infty\), \(r^{N+1} \to 0\). Therefore, the sum of the infinite series becomes:
+\[S = \lim_{N \to \infty} S_N = \frac{a}{1 - r}.\]
+\end{proof}
+The concept of \(|r| < 1\) converging can be thought of as trivial. The larger the value of $n$, the smaller the value of the series of $r$ is less than one. If $r$ is larger than one, the exponent will grow larger without bound. These can both be seen in the general graphs of an exponential function. So generally, we have the Geometric Series Test for series in the form of \(\sum_{n=0}^\infty ar^n\):
+\begin{concept}{Geometric Series Test:}
+A geometric series of the form:
+\[\sum_{n=0}^\infty ar^n = a + ar + ar^2 + \dots\]
+\textbf{Converges} if \( |r| < 1 \), and the sum is:
+\[\sum_{n=0}^\infty ar^n = \frac{a}{1 - r}, \quad \text{for } |r| < 1.\]
+\textbf{Diverges} if \( |r| \geq 1 \): 
+\end{concept}
+We will consider these geometric series:
+\[\sum_{n=0}^\infty \frac{1}{2^n}.\]
+Here, \(a = 1\) and \(r = \frac{1}{2}\). Since \(|r| < 1\), the series converges. Using the formula for the sum:
+\[\sum_{n=0}^\infty \frac{1}{2^n} = \frac{1}{1 - \frac{1}{2}} = 2.\]
+With the second series: 
+\[\sum_{n=0}^\infty 2^n.\]
+Here, \(a = 1\) and \(r = 2\). Since \(|r| \geq 1\), the series diverges because the terms grow without bound.
+\subsection{Alternating Series Test and Telescoping Series}
+Oftentimes, a large sum of numbers lead to special relations that allow for us to cancel certain terms. Once a large number of terms cancel out, it seems like the sequnce "telescopes", shrinking into just a couple of distinct terms. These series, fittingly, are called a telescoping series. 
+\begin{concept}{Telescoping Series:}
+    A telescoping series typically has terms of the form:
+\[\sum_{n=1}^\infty (a_n - a_{n+1}),\]
+where \(a_n\) represents a sequence.
+The partial sum of a telescoping series is given by:
+\[S_N = \sum_{n=1}^N (a_n - a_{n+1}),\]
+which expands to:
+\[S_N = (a_1 - a_2) + (a_2 - a_3) + (a_3 - a_4) + \dots + (a_N - a_{N+1}).\]
+Observe that most terms cancel, leaving:
+\[S_N = a_1 - a_{N+1}.\]
+The series will only converge if the series the limit as $N$ approaches infinity is a finite value.
+\end{concept}
+\begin{proof}
+Consider the series:
+\[\sum_{n=1}^\infty \left(\frac{1}{n} - \frac{1}{n+1}\right).\]
+The partial sum is:
+\[S_N = \sum_{n=1}^N \left(\frac{1}{n} - \frac{1}{n+1}\right).\]
+Expanding:
+\[S_N = \left(\frac{1}{1} - \frac{1}{2}\right) + \left(\frac{1}{2} - \frac{1}{3}\right) + \left(\frac{1}{3} - \frac{1}{4}\right) + \dots + \left(\frac{1}{N} - \frac{1}{N+1}\right).\]
+All intermediate terms cancel, leaving:
+\[S_N = 1 - \frac{1}{N+1}.\]
+Taking the limit as \(N \to \infty\):
+\[\lim_{N \to \infty} S_N = 1 - \lim_{N \to \infty} \frac{1}{N+1} = 1.\]
+Thus, the series converges to 1:
+\[\sum_{n=1}^\infty \left(\frac{1}{n} - \frac{1}{n+1}\right) = 1.\]
+So therefore the series converges.
+\end{proof}
+Now, we will se an example of a telescoping series. Consider the series:
+\begin{proof}
+\[\sum_{n=1}^\infty \left(\ln(n+1) - \ln(n)\right).\]
+This series can be written in expanded form as:
+\[\sum_{n=1}^\infty \left(\ln(n+1) - \ln(n)\right) = (\ln(2) - \ln(1)) + (\ln(3) - \ln(2)) + (\ln(4) - \ln(3)) + \dots\]
+The partial sum of the series is:
+\[S_N = \sum_{n=1}^N \left(\ln(n+1) - \ln(n)\right).\]
+Expanding this, we get:
+\[S_N = (\ln(2) - \ln(1)) + (\ln(3) - \ln(2)) + \dots + (\ln(N+1) - \ln(N)).\]
+Notice that most terms cancel, leaving:
+\[S_N = \ln(N+1) - \ln(1).\]
+Simplifying further:
+\[S_N = \ln(N+1).\]
+To determine if the series converges, take the limit as \(N \to \infty\):
+\[\lim_{N \to \infty} S_N = \lim_{N \to \infty} \ln(N+1) = \infty.\]
+Since the partial sum grows without bound as \(N\) increases, the series diverges. 
+\end{proof}
+This alternation between positive and negative terms can resemble a similar type of series, known as an alternating series. It takes the form of: 
+\[\sum_{n=1}^\infty (-1)^{n-1} a_n \]
+Geometrically, it can be represented as: 
+\begin{figure}[H]
+    \caption{Visual Representation of an Alternating Series}
+    \centering
+    \includegraphics[width=0.9\textwidth]{altseries.png}
+\end{figure}
+The series will alternate from larger values to smaller values. As seen in the differences between consecutive terms, the differences will only decrease if the value of $b_n$ decreases with each consecutive value of $n$. So in order for this series to converge, each alternating value must get smaller and smaller, so for increasing values of $n$ each additional term added gets closer and closer to zero, leading to the convergence to a value. These conditions must be met: 
+\begin{concept}{Alternating Series Test:}
+    An alternating series of the form:
+\[
+\sum_{n=1}^\infty (-1)^{n-1} b_n = b_1 - b_2 + b_3 - \dots
+\]
+\textbf{Converges} if:
+\begin{enumerate}
+    \item \( b_n > 0 \),
+    \item \( b_n \) is decreasing (\( b_{n+1} \leq b_n \)),
+    \item \( \lim_{n \to \infty} b_n = 0 \).
+\end{enumerate}
+If all of these are not met, then the series diverges.
+\end{concept}
+\subsection{Direct Comparison Test and Limit Comparison Test}
+Similar to the integral test, if we compare the bounds of a two similar series, we can determine divergence. Suppose we look at the graphs of two general terms of the series: 
+\begin{figure}[H]
+    \caption{Visual Representation of Two Different Series}
+    \centering
+    \includegraphics[width=0.9\textwidth]{lct.png}
+\end{figure}
+The graph of red is the function $f(x) = \frac{1}{x-1}$, and the graph of blue is the function $f(x) = \frac{1}{x}$. Obviously, $f(x) = \frac{1}{x-1}$ will always be larger than $f(x) = \frac{1}{x}$. However, since the series $\sum_{n=1}^{\infty} \frac{1}{x}$ diverges, and since that series is less than $\sum_{n=1}^{\infty} \frac{1}{x-1}$, the series must also diverge. The converse must also be true, if a function bounds a another function, and if the greater function converges the smaller function must also converge. 
+\begin{figure}[H]
+    \caption{Another Visual Representation of Two Different Series}
+    \centering
+    \includegraphics[width=0.9\textwidth]{lct2.png}
+\end{figure}
+Here, the purple is the function $f(x) = \frac{1}{x^2}$ and the green is $f(x) = \frac{1}{x^3}$. Since $\frac{1}{x^2}$ will always be larger than $\frac{1}{x^3}$ and the series $\sum_{n=1}^{\infty} \frac{1}{x^2}$ converges by p-series, the sum $\sum_{n=1}^{\infty} \frac{1}{x^3}$ must also converge. Therefore, we can write a general rule for the comparison of two differnt series: 
+\begin{concept}{Direct Comparsion Test:}
+Consider two series:
+\[
+\sum_{n=1}^\infty a_n \quad \text{and} \quad \sum_{n=1}^\infty b_n,
+\]
+where \( 0 \leq a_n \leq b_n \) for all \( n \geq N \) (some positive integer \( N \)).
+\begin{itemize}
+    \item If \( \sum_{n=1}^\infty b_n \) converges, then \( \sum_{n=1}^\infty a_n \) also converges.
+    \item If \( \sum_{n=1}^\infty a_n \) diverges, then \( \sum_{n=1}^\infty b_n \) also diverges.
+\end{itemize}
+\end{concept}
+Genrally, it will be up to you to choose the correct comparison. Often, you will get items similar to the series of a well know general term. Here are some examples: 
+\[
+\begin{array}{|c|c|}
+\hline
+\text{Given Series} & \text{Compare With} \\ \hline
+\frac{1}{n+1} & \frac{1}{n} \\ \hline
+\frac{1}{n\ln(n)} & \frac{1}{n} \\ \hline
+\frac{1}{n^2-1} & \frac{1}{n^2} \\ \hline
+\frac{1}{n^3+n} & \frac{1}{n^3} \\ \hline
+\frac{1}{2^n-1} & \frac{1}{2^n} \\ \hline
+\frac{n^2-5}{n^4+n^3+1} & \frac{1}{n^2} \\ \hline
+\frac{n^3+7}{n^4+n-10} & \frac{1}{n} \\ \hline
+\frac{1}{(\ln(n))^2} & \frac{1}{n(\ln(n))^2} \\ \hline
+\end{array}
+\]
+It will take practice in order to determine the correct comparison. Just keep doing problems, and you will be able to get it! Additionally, practice with other tests may help determine which types of terms will converge or diverge with which test. 
+\par 
+However, sometimes it may be challenging to develop a direct inequality comparison. It may be better to look at the asymptopic behavior of two general terms, such as:
+\begin{figure}[h]
+    \caption{Another Visual Representation of Two Different Series}
+    \centering
+    \includegraphics[width=0.9\textwidth]{lct3.png}
+\end{figure}
+In the red, we have the the graph of the function $\frac{x^2+3}{x^3+x}$, and in the blue we have the function $\frac{1}{x}$. From the graph, we can obviously see that $\frac{x^2+3}{x^3+x}$ is greater than $\frac{1}{x}$, however algebraically, this may be challenging to tell. If we are given a situation similar to this, we can compar the asymptopic behaviors. Both of these functions are proportional to one another at large values of $n$ (or when $n \rightarrow \infty$), so we can compute the ratio of the two limits to determine convergence. 
+\begin{concept}{Limit Comparison Test:}
+    Consider two series:\[\sum_{n=1}^\infty a_n \quad \text{and} \quad \sum_{n=1}^\infty b_n,\]
+    where \( a_n > 0 \) and \( b_n > 0 \) for all \( n \).
+    If:\[\lim_{n \to \infty} \frac{a_n}{b_n} = c, \quad \text{where } 0 < c < \infty,\]
+    then either both series converge or both diverge.
+    \end{concept}
+Obviously, if they are only differeing by a ratio (a constant) then it is impossible that one series will be divergent and one will be convergent. (Infinity does not work this way!)
+\subsection{Ratio and Root Tests}
+We will start off this section with the definition of absolute convergence. 
+\begin{concept}
+A series \[ \sum_{n=1}^\infty a_n \] is said to \textbf{converge absolutely} if the series and it's absolute values \[ \sum_{n=1}^\infty |a_n| \] converge, and is said to be \textbf{conditionally convergent} if the series converges but the series of absolute values diverges.
+\end{concept}
+The applications of this include a easier time constructing functions if the fourier series is absolutely convergent. Additionally, it guaruntees a convergence of items such as Laurent series, if we break a complex term down into its components.
+\par 
+For this section, I will introduce a type of series test that is particularly useful in determinning the convergence of terms with factorials, exponentials, or any power. Additionally, this series helps determine absolute convergence, and is called the ratio test.
+\begin{concept}{Ratio Test:}
+Given a series \( \sum_{n=1}^\infty a_n \), let:
+\[
+L = \lim_{n \to \infty} \left| \frac{a_{n+1}}{a_n} \right|.
+\]
+\begin{itemize}
+    \item If \( L < 1 \), the series \textbf{converges absolutely}.
+    \item If \( L > 1 \) or \( L = \infty \), the series \textbf{diverges}.
+    \item If \( L = 1 \), the test is \textbf{inconclusive}.
+\end{itemize}
+\end{concept}
+The notion that $L < 1$ is the condition for convergence should seem familar. In fact, it is seen in one of the most common, the geometric series! 
+\par 
+The ratio test will compute the different magnitude of terms in $|a_{n+1}|$ and $|a_n|$. If $|a_{n+1}|$ converges sufficiently faster than $|a_{n+1}|$, then the ratio of $\frac{|a_{n+1}|}{|a_n|}$ less than one. It works similarly to the geometric series in the sense that the ratio of successive terms must approach a value less than one. Suppose that there are two functions that have a sucessive ratio of one. They will both contain an identical factor, however their behavior will differ to a point where the ratio test will not work. For situations like this, use a comparison test! 
+\begin{proof}
+Given a series: 
+    \[\sum_{n=1}^{\infty}\frac{1}{n!}\]
+Define the terms of the series:
+\[a_n = \frac{1}{n!}\]
+Compute the ratio of consecutive terms:
+\[\frac{a_{n+1}}{a_n} = \frac{\frac{1}{(n+1)!}}{\frac{1}{n!}} = \frac{n!}{(n+1)!}\]
+Simplify the factorial expression:
+\[\frac{a_{n+1}}{a_n} = \frac{n!}{(n+1) \cdot n!} = \frac{1}{n+1}\]
+Take the limit as \( n \to \infty \):
+\[L = \lim_{n \to \infty} \frac{1}{n+1} = 0\] Since $0 < 1$, the series converges. 
+\end{proof}
+The same process can be used to prove divergence and inconclusivity. A special inconclusive case is the harmonic series. Try it out yourself! 
+\par 
+Similarly, the root test operates under the same fundamental principle, since $\sqrt[n]{|a_n|}$ and $\frac{|a_{n+1}|}{|a_n|}$ show the same asymptopic growth. Particularly, it is very useful in evaluating series when the general term is in the form $(a_n)^n$. 
+
+\begin{concept}{Root Test:}
+Given a series \( \sum_{n=1}^\infty a_n \), let:
+\[
+L = \lim_{n \to \infty} \sqrt[n]{|a_n|}.
+\]
+\begin{itemize}
+    \item If \( L < 1 \), the series \textbf{converges absolutely}.
+    \item If \( L > 1 \) or \( L = \infty \), the series \textbf{diverges}.
+    \item If \( L = 1 \), the test is \textbf{inconclusive}.
+\end{itemize}
+\end{concept}
+Here is an example:
+\begin{proof} 
+Given the series:
+\[\sum_{n=1}^{\infty} \left( 1 + \frac{1}{n} \right)^n \]
+The Root Test requires calculating:
+\[
+L = \lim_{n \to \infty} \sqrt[n]{\left| a_n \right|},
+\]
+where \( a_n = \left( 1 + \frac{1}{n} \right)^n \). Computing the \( n \)-th Root
+Take the \( n \)-th root of \( a_n \):
+\[
+\sqrt[n]{a_n} = \sqrt[n]{\left( 1 + \frac{1}{n} \right)^n}.
+\]
+And further simplifying using the property \( \sqrt[n]{x^n} = x \):
+\[
+\sqrt[n]{a_n} = 1 + \frac{1}{n}.
+\]
+Taking the Limit as \( n \to \infty \):
+\[
+L = \lim_{n \to \infty} \left( 1 + \frac{1}{n} \right) = 1.
+\]
+Since \( L = 1 \), the Root Test is inconclusive.
+\end{proof}
+As a special note, the $\lim_{n \to \infty} \left( 1 + \frac{1}{n} \right)^n = e$. 
+\end{document}
